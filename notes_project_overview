@@ -1,0 +1,71 @@
+Project Overview: Automating Molecule Detection and Classification from AFM Data
+
+The Core Problem: The current process of identifying and counting molecules from microscopy data is manual, time-consuming, and labour-intensive.
+
+The Ultimate Goal: To create an automated program that takes raw data files, processes them, and outputs:
+
+1. A clean, visualised image.
+2. The total number of molecules.
+3. A breakdown of how many of each type of molecule are present.
+4. The location of each molecule.
+
+
+Part 1: Understanding the Data
+
+How the Image is Made: A scanning tip moves in lines, sampling the surface at discrete points (pixels). It records a height value (Z) at each position, creating a 2D matrix of Z-data.
+
+What the Image Shows:
+- The data is inherently black and white (grayscale) because it only records one value (height). The colours you sometimes see are artificially applied colour maps.
+- Intensity = Height: Brighter areas are higher (more "up"), darker areas are lower (more "down").
+
+What We Can Measure from Each Molecule:
+- Shape: The contour (outline) of the molecule.
+- Area: The number of pixels inside the contour.
+- Intensity Profile: The distribution of height values within the molecule.
+
+
+Part 2: The Technical Challenge
+
+The Main Difficulty: Grouping molecules that are the same type but appear in different orientations.
+
+Potential Solutions for Orientation-Invariant Grouping:
+- Use features that don't depend on rotation, such as:
+  - Number of vertices.
+  - Curvature of the edges.
+  - Area.
+- Approach 1 (Machine Learning): Extract individual molecule contours to generate a training dataset. Use augmentation to create a larger dataset. Train an AI model to classify them.
+- Approach 2 (Purely Algorithmic): Develop a rule-based system using the orientation-invariant features above.
+
+The "One Step Further" Idea:
+Once you have the contours, you can feed the raw data into an AI model or algorithm to not only count but also identify the chiral version of each molecule.
+
+
+Part 3: Actionable Steps and Milestones
+
+Break the project down into small, achievable mini-goals:
+
+1. Data Loading: Can I load a raw data file (e.g., .sxm format) using a Python package like Nanospy2?
+2. Visualisation: Can I plot this data to reproduce the original image?
+3. Pre-processing: Can I apply filters to clean the image and reduce noise?
+4. Contour Detection: Using computer vision libraries like OpenCV (opencv-python), can I draw contours around each molecule?
+5. Feature Extraction: Can I calculate the area, shape parameters, and intensity for each contour?
+6. Grouping/Classification: Can I group molecules by type (e.g., using a simple 0-6 classification system)?
+7. Output: Can I generate a final graph showing the total counts and a breakdown by type?
+
+Other: Putting a scale bar (100 nanometres) and seeing if the two contours are the same.
+
+
+Part 4: The Story and Presentation Strategy
+
+To make the project compelling, frame it as a narrative:
+
+- The Hook (1-2 slides): Talk about the "Materials Genome" – the idea of building new materials atom-by-atom that cannot be created naturally. This requires a lot of pushing and pulling of molecules, which is currently done manually by researchers.
+- The Problem: Explain that this manual analysis is a major bottleneck. It takes hours of painstaking work to sort through noisy data.
+- The Solution (Your Project): Introduce your algorithm as an automated pipeline to solve this problem, turning hours of work into minutes.
+- The Details: After capturing their attention, dive into the technical details of your algorithm and the tools used (Python, Nanospy2, OpenCV).
+
+Tools and Resources Mentioned:
+- Python Packages: Nanospy2 (for reading data), opencv-python (for image processing and contours).
+- Environment: Jupyter Notebook.
+- Inspiration: Look up papers by Jack Hellerstedt for relevant research.
+- Key Data Files: Focus on the files named double 08, 7, 9, 10, 11.
